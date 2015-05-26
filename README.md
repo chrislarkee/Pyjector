@@ -1,5 +1,5 @@
 # Pyjector
-Limited emulation of a Christie DLP projector's TIPM serial interface. Helpful if you're working on an application to control projectors.
+Limited emulation of a Christie DLP projector's TIPM serial interface, written in Python. Helpful if you're working on an application to control projectors.
 
 Supported commands:
 - Ping (PNG?)

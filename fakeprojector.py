@@ -28,44 +28,44 @@ s.listen(1)
 
 try:
   conn, addr = s.accept()
-  print "Connection from " + str(addr)
+  print("Connection from " + str(addr))
 
   while True:
-    data = conn.recv(1024)
+    data = conn.recv(1024).decode()
     if not data: break
-    print data
+    print(data)
     if "PNG?" in data:
-        print "Ping received."
+        print("Ping received.")
         conn.send("(PNG! 031 001 000)")
     elif "PWR?" in data:
-        print "Query received - lamp status."
+        print("Query received - lamp status.")
         if lampState == 1:
-            conn.send(lampOnResponse)
-            print "Lamp is on."
+            conn.send(lampOnResponse.encode())
+            print("Lamp is on.")
         if lampState == 0:
-            conn.send(lampOffResponse)
-            print "Lamp is off"
+            conn.send(lampOffResponse.encode())
+            print("Lamp is off")
     elif "PWR1" in data:
-        print "Command received - lamp on."
+        print("Command received - lamp on.")
         lampState = 1
     elif "PWR0" in data:
-        print "Command received - lamp off."
+        print("Command received - lamp off.")
         lampState = 0
     elif "SHU?" in data:
-        print "Query received - shutter status."
+        print("Query received - shutter status.")
         if shutterState == 0:
-            conn.send(shutterOpenResponse)
-            print "Shutter is open."
+            conn.send(shutterOpenResponse.encode())
+            print("Shutter is open.")
         if shutterState == 1:
-            conn.send(shutterClosedResponse)
-            print "Shutter is closed."
+            conn.send(shutterClosedResponse.encode())
+            print("Shutter is closed.")
 
     elif "SHU0" in data:
          shutterState = 0
-         print "Command received - shutter open."
+         print("Command received - shutter open.")
     elif "SHU1" in data:
          shutterState = 1
-         print "Command received - shutter close."
+         print("Command received - shutter close.")
 
 except KeyboardInterrupt:
   conn.close()
